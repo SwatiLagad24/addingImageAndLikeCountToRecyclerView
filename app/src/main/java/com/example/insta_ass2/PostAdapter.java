@@ -1,6 +1,7 @@
 package com.example.insta_ass2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,13 +25,30 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         public TextView txtTitle;
         public ImageView postImage;
         public TextView txtLikes;
+        public ImageView imageViewLike,imgComment;
+
 
         public PostViewHolder(@NonNull View itemView){
             super(itemView);
             txtTitle=itemView.findViewById(R.id.txtTitle);
             postImage=itemView.findViewById(R.id.imgShow);
-            txtLikes=itemView.findViewById(R.id.txtLikeShow);
-            txtLikes.setOnClickListener(
+            txtLikes=itemView.findViewById(R.id.txtLikesShow);
+            imageViewLike=itemView.findViewById(R.id.imgLikes);
+            imgComment=itemView.findViewById(R.id.imgComment);
+
+            imgComment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), comment.class);
+
+                                       v.getContext().startActivity(intent);
+
+
+
+                }
+            });
+
+            imageViewLike.setOnClickListener(
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -40,6 +58,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                             txtLikes.setText(""+like);
                         }
                     });
+     /*       postImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int likes;
+                    likes=Integer.parseInt(txtLikes.getText().toString());
+                    likes++;
+                    txtLikes.setText(""+likes);
+                }
+            });*/
         }
     }
 
@@ -65,4 +92,3 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         return posts.size();
     }
 }
-
